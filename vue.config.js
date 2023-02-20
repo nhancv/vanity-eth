@@ -16,6 +16,7 @@ module.exports = {
             })
             .end();
     },
+    parallel: false, // Avoid build error: Cannot read properties of undefined (reading 'options')
     configureWebpack: {
         plugins: process.env.DEPLOY
             ? [

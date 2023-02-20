@@ -1,7 +1,7 @@
 {
     "name": "vanity-eth",
     "description": "Browser-based ETH vanity address generator ",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "main": "index.js",
     "private": true,
@@ -9,7 +9,7 @@
         "prebuild": "rimraf ./node_modules/.cache",
         "serve_n14": "npm run prebuild && vue-cli-service serve",
         "serve": "npm run prebuild && NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
-        "build": "vue-cli-service build --modern",
+        "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
         "lint": "vue-cli-service lint",
         "build:deploy": "npm i --no-save prerender-spa-plugin && cross-env DEPLOY=true npm run build",
         "test": "vue-cli-service lint --nofix",
