@@ -4,13 +4,6 @@
             <!--Headline-->
             <headline></headline>
 
-            <!--Description-->
-            <div class="row">
-                <div class="col-md-12">
-                    <description></description>
-                </div>
-            </div>
-
             <!--Error-->
             <div v-if="error" class="row">
                 <div class="col-md-12">
@@ -49,6 +42,13 @@
                         :private-key="result.privateKey"
                         :mnemonic="result.mnemonic"
                     ></result>
+                </div>
+            </div>
+
+            <!--Description-->
+            <div class="row">
+                <div class="col-md-12">
+                    <description></description>
                 </div>
             </div>
         </div>

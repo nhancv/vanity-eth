@@ -14,7 +14,7 @@
     @import "../css/variables"
 
     div
-        margin-bottom: 8em
+        margin-bottom: 5em
         color: $logo
         font-family: 'Montserrat', sans-serif
         text-align: center
