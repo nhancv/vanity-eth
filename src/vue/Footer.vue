@@ -14,11 +14,8 @@
                     <a :href="`https://etherscan.io/address/${tipsAddress}`" target="_blank">
                         <i class="icon-ethereum"></i>&nbsp;&nbsp;&nbsp;Donate
                     </a>
-                    <a href="https://github.com/bokub/vanity-eth" target="_blank">
+                    <a href="https://github.com/nhancv/vanity-eth" target="_blank">
                         <i class="icon-star"></i>&nbsp;&nbsp;&nbsp;Star&nbsp;me
-                    </a>
-                    <a href="https://github.com/bokub/vanity-eth/wiki/download-Vanity-ETH" target="_blank">
-                        <i class="icon-download"></i>&nbsp;&nbsp;&nbsp;Download
                     </a>
                 </div>
             </div>
@@ -30,7 +27,7 @@
     export default {
         data: function () {
             return {
-                tipsAddress: '0xAceBabe64807cb045505b268ef253D8fC2FeF5Bc',
+                tipsAddress: '0x588d48ba59e3d19f6e5145764059d3a606e67d36',
             };
         },
     };

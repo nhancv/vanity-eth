@@ -2,6 +2,7 @@
 const secp256k1 = require('secp256k1');
 const keccak = require('keccak');
 const randomBytes = require('randombytes');
+const ethers = require('./ethers.umd.min.js');
 
 const step = 500;
 
@@ -15,14 +16,24 @@ const privateToAddress = (privateKey) => {
 
 /**
  * Create a wallet from a random private key
- * @returns {{address: string, privKey: string}}
+ * @returns {{address: string, privKey: string, mnemonic: string}}
  */
-const getRandomWallet = () => {
-    const randbytes = randomBytes(32);
-    return {
-        address: privateToAddress(randbytes).toString('hex'),
-        privKey: randbytes.toString('hex')
-    };
+const getRandomWallet = (isHDMode = false) => {
+    if (!isHDMode) {
+        // Fastest mode, but no mnemonic
+        const randbytes = randomBytes(32);
+        return {
+            address: privateToAddress(randbytes).toString('hex'),
+            privKey: randbytes.toString('hex'),
+        };
+    } else {
+        const wallet = ethers.Wallet.createRandom();
+        return {
+            address: wallet.address.replace('0x', ''),
+            mnemonic: wallet.mnemonic.phrase,
+            privKey: wallet.privateKey.replace('0x', ''),
+        };
+    }
 };
 
 /**
@@ -76,31 +87,36 @@ const toChecksumAddress = (address) => {
  * @param cb - Callback called after x attempts, or when an address if found
  * @returns
  */
-const getVanityWallet = (input, isChecksum, isSuffix, cb) => {
+const getVanityWallet = (input, isChecksum, isSuffix, isHDMode, cb) => {
     input = isChecksum ? input : input.toLowerCase();
-    let wallet = getRandomWallet();
+    let wallet = getRandomWallet(isHDMode);
     let attempts = 1;
 
     while (!isValidVanityAddress(wallet.address, input, isChecksum, isSuffix)) {
         if (attempts >= step) {
-            cb({attempts});
+            cb({ attempts });
             attempts = 0;
         }
-        wallet = getRandomWallet();
+        wallet = getRandomWallet(isHDMode);
         attempts++;
     }
-    cb({address: '0x' + toChecksumAddress(wallet.address), privKey: wallet.privKey, attempts});
+    cb({
+        address: '0x' + toChecksumAddress(wallet.address),
+        privKey: wallet.privKey,
+        mnemonic: wallet.mnemonic,
+        attempts,
+    });
 };
 
 onmessage = function (event) {
     const input = event.data;
     try {
-        getVanityWallet(input.hex, input.checksum, input.suffix, (message) => postMessage(message));
+        getVanityWallet(input.hex, input.checksum, input.suffix, input.hdmode, (message) => postMessage(message));
     } catch (err) {
-        self.postMessage({error: err.toString()});
+        self.postMessage({ error: err.toString() });
     }
 };
 
 module.exports = {
-    onmessage
+    onmessage,
 };

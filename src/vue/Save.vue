@@ -39,8 +39,8 @@
 
     export default {
         props: {
-            privateKey: String,
             address: String,
+            privateKey: String,
         },
         data: function () {
             return {

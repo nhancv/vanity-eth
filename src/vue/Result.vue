@@ -13,6 +13,14 @@
                         @click="revealKey()"
                     ></span>
                 </div>
+                <div v-if="mnemonic">
+                    Mnemomic:
+                    <span
+                        class="output"
+                        v-text="revealHD ? mnemonic : 'Click to reveal'"
+                        @click="revealMnemomic()"
+                    ></span>
+                </div>
             </div>
             <div class="col-lg-2 col-12">
                 <button data-remodal-target="modal" class="save button-large" :disabled="!privateKey">
@@ -29,16 +37,19 @@
     export default {
         props: {
             address: String,
+            mnemonic: String,
             privateKey: String,
         },
         data: function () {
             return {
                 reveal: false,
+                revealHD: false,
             };
         },
         watch: {
             address(addr) {
                 this.reveal = false;
+                this.revealHD = false;
                 const id = document.getElementById('identicon');
                 id.innerHTML = '';
                 if (addr) {
@@ -49,6 +60,9 @@
         methods: {
             revealKey() {
                 this.reveal = true;
+            },
+            revealMnemomic() {
+                this.revealHD = true;
             },
         },
     };

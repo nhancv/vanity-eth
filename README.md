@@ -7,7 +7,7 @@
 
 Browser-based ETH vanity address generator
 
-Just type [`vanity-eth.tk`](https://vanity-eth.tk) to use it ⚡️
+Just type [`eth.nhancv.com`](https://eth.nhancv.com) or [`vanity-eth.tk`](https://vanity-eth.tk) to use it ⚡️
 
 [![Vanity-ETH](https://i.imgur.com/zmSLeBP.png)](https://vanity-eth.tk)
 
@@ -19,7 +19,7 @@ Examples: `0xc0ffee254729296a45a3885639AC7E10F9d54979`, or `0x999999cf1046e68e36
 
 ## Usage
 
-First of all, visit [`vanity-eth.tk`](https://vanity-eth.tk)
+First of all, visit [`eth.nhancv.com`](https://eth.nhancv.com) or [`vanity-eth.tk`](https://vanity-eth.tk)
 
 Enter as short prefix/suffix of your choice at the bottom of the page, and click ‘generate’ to start. Your browser will
 generate lots of random addresses until one matches your input.
@@ -64,12 +64,18 @@ A GitHub Action is in charge of building and deploying Vanity-ETH to GitHub page
 your own build from source if you want
 
 ```sh
-git clone https://github.com/bokub/vanity-eth
+git clone https://github.com/nhancv/vanity-eth
 cd vanity-eth
 npm i
+# dev. Node >= 18
+npm run serve
+# prod
 npm run build
 ```
 
-## Tips
+## Tips 💛
 
-You can support this project by sending tips to `0xAceBabe64807cb045505b268ef253D8fC2FeF5Bc` 💛
+You can support this project by sending tips to
+
+-   Original: `0xAceBabe64807cb045505b268ef253D8fC2FeF5Bc`
+-   Me: `0x588d48ba59e3d19f6e5145764059d3a606e67d36`

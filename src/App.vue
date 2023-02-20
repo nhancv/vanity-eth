@@ -44,7 +44,11 @@
             <!--Result-->
             <div class="row">
                 <div class="col-md-12">
-                    <result :address="result.address" :private-key="result.privateKey"></result>
+                    <result
+                        :address="result.address"
+                        :private-key="result.privateKey"
+                        :mnemonic="result.mnemonic"
+                    ></result>
                 </div>
             </div>
         </div>
@@ -82,8 +86,8 @@
                 workers: [],
                 threads: 4,
                 cores: 0,
-                result: { address: '', privateKey: '' },
-                input: { hex: '', checksum: true, suffix: false },
+                result: { address: '', privateKey: '', mnemonic: '' },
+                input: { hex: '', checksum: true, hdmode: false, suffix: false },
                 firstTick: null,
                 error: null,
             };
@@ -105,6 +109,9 @@
                     case 'checksum':
                         this.input.checksum = value;
                         break;
+                    case 'hdmode':
+                        this.input.hdmode = value;
+                        break;
                     case 'suffix':
                         this.input.suffix = value;
                         break;
@@ -116,12 +123,14 @@
             displayResult: function (result) {
                 this.$emit('increment-counter', result.attempts);
                 this.result.address = result.address;
+                this.result.mnemonic = result.mnemonic;
                 this.result.privateKey = result.privKey;
                 this.status = 'Address found';
             },
 
             clearResult: function () {
                 this.result.address = '';
+                this.result.mnemonic = '';
                 this.result.privateKey = '';
                 this.$emit('increment-counter', -1);
             },
@@ -222,7 +231,10 @@
                     this.error = 'insecure_location';
                 }
                 const hostname = window.location.hostname;
-                if (hostname && ['localhost', '127.0.0.1', 'vanity-eth.tk'].indexOf(hostname) === -1) {
+                if (
+                    hostname &&
+                    ['localhost', '127.0.0.1', 'eth.nhancv.com', 'vanity-eth.tk'].indexOf(hostname) === -1
+                ) {
                     this.error = 'insecure_location';
                 }
             },

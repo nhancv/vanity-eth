@@ -30,14 +30,21 @@
                 </span>
             </div>
             <div class="row controls hide-prerender">
-                <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                <div class="col-12 col-sm-4 col-md-12 col-lg-4">
                     <label class="checkbox">
                         <input type="checkbox" name="checkbox" checked="" v-model="checksum" :disabled="running" />
                         <i class="left"> </i>
                         Case-sensitive
                     </label>
                 </div>
-                <div class="col-12 col-sm-6 col-md-12 col-lg-6">
+                <div class="col-12 col-sm-4 col-md-12 col-lg-4">
+                    <label class="checkbox">
+                        <input type="checkbox" name="checkbox" checked="" v-model="hdmode" :disabled="running" />
+                        <i class="left"> </i>
+                        HDMode
+                    </label>
+                </div>
+                <div class="col-12 col-sm-4 col-md-12 col-lg-4">
                     <span>Prefix</span>
                     <label class="switch">
                         <input type="checkbox" v-model="suffix" :disabled="running" />
@@ -107,6 +114,7 @@
                 threads: this.$props.cores || 4,
                 hex: '',
                 checksum: true,
+                hdmode: false,
                 suffix: false,
                 error: false,
             };
@@ -143,6 +151,9 @@
             },
             checksum: function () {
                 this.$emit('input-change', 'checksum', this.checksum);
+            },
+            hdmode: function () {
+                this.$emit('input-change', 'hdmode', this.hdmode);
             },
             suffix: function () {
                 this.$emit('input-change', 'suffix', this.suffix);
