@@ -3,23 +3,21 @@
         <div class="row">
             <div class="float-left" id="identicon"></div>
             <div class="col">
-                <div>Address: <span class="output" v-text="address"></span></div>
                 <div>
-                    Private key:
+                    <span @click="copyToClipboard(0)">Address:</span><span class="output" v-text="address"></span>
+                </div>
+                <div>
+                    <span @click="copyToClipboard(1)">Private key:</span>
                     <span
                         class="output"
                         v-if="privateKey"
                         v-text="reveal ? privateKey : 'Click to reveal'"
-                        @click="revealKey()"
+                        @click="revealKey(1)"
                     ></span>
                 </div>
                 <div v-if="mnemonic">
-                    Mnemomic:
-                    <span
-                        class="output"
-                        v-text="revealHD ? mnemonic : 'Click to reveal'"
-                        @click="revealMnemomic()"
-                    ></span>
+                    <span @click="copyToClipboard(2)">Mnemomic:</span>
+                    <span class="output" v-text="revealHD ? mnemonic : 'Click to reveal'" @click="revealKey(2)"></span>
                 </div>
             </div>
             <div class="col-lg-2 col-12">
@@ -32,6 +30,7 @@
 </template>
 
 <script>
+    import Vue from 'vue';
     import * as blockies from 'blockies';
 
     export default {
@@ -44,6 +43,7 @@
             return {
                 reveal: false,
                 revealHD: false,
+                clearCBTimeout: false,
             };
         },
         watch: {
@@ -58,11 +58,52 @@
             },
         },
         methods: {
-            revealKey() {
-                this.reveal = true;
+            revealKey(id) {
+                switch (id) {
+                    case 1: // private key
+                        this.reveal = !this.reveal;
+                        break;
+                    case 2: // mnemonic
+                        this.revealHD = !this.revealHD;
+                        break;
+                }
+                this.$clipboard(' ');
             },
-            revealMnemomic() {
-                this.revealHD = true;
+            copyToClipboard(id) {
+                let text;
+                let idName;
+                switch (id) {
+                    case 0: // address
+                        text = this.address;
+                        idName = 'address';
+                        break;
+                    case 1: // private key
+                        text = this.privateKey;
+                        idName = 'private key';
+                        break;
+                    case 2: // mnemonic
+                        text = this.mnemonic;
+                        idName = 'mnemonic';
+                        break;
+                }
+                if (text) {
+                    this.$clipboard(text)
+                        .then(() => {
+                            Vue.$toast.open(`Copied ${idName} to clipboard`);
+
+                            // Auto clear clipboard after 30s
+                            if (this.clearCBTimeout) clearTimeout(this.clearCBTimeout);
+                            this.clearCBTimeout = setTimeout(() => {
+                                this.$clipboard(' ');
+                            }, 30_000);
+                        })
+                        .catch(() => {
+                            Vue.$toast.open({
+                                message: `Unable to copy to clipboard`,
+                                type: 'error',
+                            });
+                        });
+                }
             },
         },
     };
