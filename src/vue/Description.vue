@@ -30,9 +30,10 @@
             &nbsp;-&nbsp;Once the web page is loaded, you can turn off the internet and continue playing, it will work
             seamlessly<br />
             &nbsp;-&nbsp;You can also download the latest build of Vanity-ETH
-            <a href="https://git.io/veth-dl" target="_blank">here</a> and use it on a completely offline computer<br />
+            <a href="https://github.com/nhancv/vanity-eth" target="_blank">here</a> and use it on a completely offline
+            computer<br />
             &nbsp;-&nbsp;The code is 100% open source and available on
-            <a href="https://github.com/bokub/vanity-eth" target="_blank">GitHub</a>. You can review it as much as you
+            <a href="https://github.com/nhancv/vanity-eth" target="_blank">GitHub</a>. You can review it as much as you
             want before using it<br />
             <br />
             Vanity-ETH uses a cryptographically secure pseudorandom number generator (CSPRNG) to generate Ethereum
