@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.87969664ae2749da8435a717d589e269.js"
+  "precache-manifest.c8905c8c2728a8aff52a5b510472265f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vanity-eth"});
