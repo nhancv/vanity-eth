@@ -70,15 +70,6 @@ const isValidChecksum = (address, input, isSuffix) => {
     return true;
 };
 
-const toChecksumAddress = (address) => {
-    const hash = keccak('keccak256').update(address).digest().toString('hex');
-    let ret = '';
-    for (let i = 0; i < address.length; i++) {
-        ret += parseInt(hash[i], 16) >= 8 ? address[i].toUpperCase() : address[i];
-    }
-    return ret;
-};
-
 /**
  * Generate a lot of wallets until one satisfies the input constraints
  * @param input - String chosen by the user
@@ -101,7 +92,7 @@ const getVanityWallet = (input, isChecksum, isSuffix, isHDMode, cb) => {
         attempts++;
     }
     cb({
-        address: '0x' + toChecksumAddress(wallet.address),
+        address: ethers.utils.getAddress('0x' + wallet.address.toLowerCase()),
         privKey: wallet.privKey,
         mnemonic: wallet.mnemonic,
         attempts,
